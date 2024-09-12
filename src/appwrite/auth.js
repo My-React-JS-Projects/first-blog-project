@@ -5,7 +5,7 @@ class AuthService {
   client = new Client()
   account
   constructor() {
-    this.client()
+    this.client
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId)
     this.account = new Account(this.client)
@@ -60,4 +60,5 @@ class AuthService {
   }
 }
 
-export default AuthService
+const authService = new AuthService()
+export default authService
