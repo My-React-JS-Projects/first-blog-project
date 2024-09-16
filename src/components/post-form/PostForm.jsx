@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { Button, Input, RTE } from "../index"
+import { Button, Input, RTE, Select } from "../index"
 import appwriteService from "../../appwrite/config"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
@@ -39,15 +39,14 @@ function PostForm({ post }) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
         : null
-
       if (file) {
         const fileId = file.$id
         data.featuredImage = fileId
-        const dbPost = await appwriteService.createPost({
-          ...data,
-          userId: userData.$id,
-        })
       }
+      const dbPost = await appwriteService.createPost({
+        ...data,
+        userId: userData.$id,
+      })
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`)

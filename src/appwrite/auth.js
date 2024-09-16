@@ -5,9 +5,7 @@ class AuthService {
   client = new Client()
   account
   constructor() {
-    this.client
-      .setEndpoint(conf.appwriteUrl)
-      .setProject(conf.appwriteProjectId)
+    this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId)
     this.account = new Account(this.client)
   }
 
@@ -20,7 +18,7 @@ class AuthService {
         name
       )
       if (userAccount) {
-        this.login({ email, password })
+        return this.login({ email, password })
       } else {
         return userAccount
       }
@@ -41,7 +39,7 @@ class AuthService {
     try {
       return await this.account.get()
     } catch (error) {
-      this.handleError(error)
+      console.log("Appwrite service :: getCurrentUser :: error", error)
     }
 
     return null
@@ -51,7 +49,7 @@ class AuthService {
     try {
       return await this.account.deleteSessions()
     } catch (error) {
-      this.handleError(error)
+      console.log("Appwrite service :: logout :: error", error)
     }
   }
 

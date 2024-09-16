@@ -18,15 +18,14 @@ function Signup() {
       const userData = await authService.createAccount(data)
       if (userData) {
         const userData = await authService.getCurrentUser()
-        if (userData) {
-          dispatch(authLogin(userData))
-          navigate("/")
-        }
+        if (userData) dispatch(authLogin(userData))
+        navigate("/")
       }
     } catch (error) {
       setErrors(error.message)
     }
   }
+
   return (
     <div className="flex items-center justify-center">
       <div
@@ -53,7 +52,11 @@ function Signup() {
 
         <form onSubmit={handleSubmit(signup)}>
           <div className="space-y-5">
-            <Input label="Full Name: " placeholder="Enter your name" {...register("name"), {required: true}} />
+            <Input
+              label="Full Name: "
+              placeholder="Enter your name"
+              {...register("name", { required: true })}
+            />
             <Input
               label="Email: "
               placeholder="Enter your email"
@@ -67,8 +70,15 @@ function Signup() {
                 },
               })}
             />
-            <Input label="Password: " placeholder="Enter your password" type="password" {...register("password", {required: true})} />
-            <Button type="submit">Create Account</Button>
+            <Input
+              label="Password: "
+              placeholder="Enter your password"
+              type="password"
+              {...register("password", { required: true })}
+            />
+            <Button type="submit" className="w-full">
+              Create Account
+            </Button>
           </div>
         </form>
       </div>
